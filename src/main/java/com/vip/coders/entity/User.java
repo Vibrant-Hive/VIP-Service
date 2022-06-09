@@ -25,8 +25,12 @@ public class User {
     String role;
     String fullName;
     String skills;
-    boolean active;
-    int experience;
+    Boolean active;
+    Integer experience;
+    String availability;
+    String languages;
+    String designation;
+    Integer rate;
 
     @Lob
     byte[] resume;

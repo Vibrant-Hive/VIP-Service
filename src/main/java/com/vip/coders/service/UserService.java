@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -14,7 +16,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public User saveUser(User user) {
-        if(getUser(user.getEmail()) == null) {
+        if (getUser(user.getEmail()) == null) {
             return userRepository.save(user);
         }
         return user;
@@ -24,7 +26,7 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public boolean apply(long userId, String fullName, String skills, int experience, MultipartFile resume) throws IOException {
+    public boolean apply(long userId, String fullName, String skills, int experience, String designation, String languages, MultipartFile resume) throws IOException {
         User user = this.userRepository.findById(userId).orElse(User.builder().build());
         user.setExperience(experience);
         user.setFullName(fullName);
@@ -32,7 +34,31 @@ public class UserService {
         user.setSkills(skills);
         user.setRole("MENTOR");
         user.setActive(false);
+        user.setDesignation(designation);
+        user.setLanguages(languages);
         this.userRepository.save(user);
+        return true;
+    }
+
+    public List<User> availableMentors() {
+        return this.userRepository.findByRoleAndActive("MENTOR", true);
+    }
+
+    public List<User> appliedMentors() {
+        return this.userRepository.findByRoleAndActive("MENTOR", false);
+    }
+
+    public byte[] downloadResume(long userId) {
+        Optional<User> user = this.userRepository.findById(userId);
+        return user.map(User::getResume).orElse(null);
+    }
+
+    public boolean approveMentor(long userId) {
+        Optional<User> user = this.userRepository.findById(userId);
+        user.ifPresent(value -> {
+            user.get().setActive(true);
+            this.userRepository.save(value);
+        });
         return true;
     }
 }

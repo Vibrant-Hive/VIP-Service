@@ -20,6 +20,10 @@ public class VIPServiceApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/validateUser");
 				registry.addMapping("/createAccount");
+				registry.addMapping("/availableMentors");
+				registry.addMapping("/appliedMentors");
+				registry.addMapping("/downloadResume");
+				registry.addMapping("/approveMentor");
 			}
 		};
 	}
