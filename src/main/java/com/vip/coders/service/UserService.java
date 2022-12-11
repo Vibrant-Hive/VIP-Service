@@ -61,4 +61,9 @@ public class UserService {
         });
         return true;
     }
+
+
+    public Optional<User> getUserById(long userId) {
+        return this.userRepository.findById(userId);
+    }
 }
