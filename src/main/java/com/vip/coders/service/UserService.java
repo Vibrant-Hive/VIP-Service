@@ -53,10 +53,12 @@ public class UserService {
         return user.map(User::getResume).orElse(null);
     }
 
-    public boolean approveMentor(long userId) {
+    public boolean approveMentor(long userId, int rate) {
         Optional<User> user = this.userRepository.findById(userId);
         user.ifPresent(value -> {
-            user.get().setActive(true);
+            User getUser = user.get();
+            getUser.setActive(true);
+            getUser.setRate(rate);
             this.userRepository.save(value);
         });
         return true;

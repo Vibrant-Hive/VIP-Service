@@ -73,8 +73,8 @@ public class UserController {
 
 
     @GetMapping(path = "/approveMentor")
-    public boolean approveMentor(@RequestParam long userId) {
-        return userService.approveMentor(userId);
+    public boolean approveMentor(@RequestParam long userId, @RequestParam int rate) {
+        return userService.approveMentor(userId, rate);
     }
 
     @GetMapping(path = "/getUser")
