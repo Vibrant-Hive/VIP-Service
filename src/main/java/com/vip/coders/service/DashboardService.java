@@ -15,16 +15,19 @@ public class DashboardService {
     @Autowired
     private UserRepository userRepository;
 
-    public boolean apply(long userId, String fullName, String skills, int experience, String designation, String languages, MultipartFile resume) throws IOException {
+    public boolean apply(long userId, String fullName, String skills, int experience, String designation, String languages, List<MultipartFile> files) throws IOException {
         User user = this.userRepository.findById(userId).orElse(User.builder().build());
         user.setExperience(experience);
         user.setFullName(fullName);
-        user.setResume(resume.getBytes());
         user.setSkills(skills);
         user.setRole("MENTOR");
         user.setActive(false);
         user.setDesignation(designation);
         user.setLanguages(languages);
+        if (!files.isEmpty()) {
+            user.setResume(files.get(1).getBytes());
+            user.setPhoto(files.get(0).getBytes());
+        }
         this.userRepository.save(user);
         return true;
     }

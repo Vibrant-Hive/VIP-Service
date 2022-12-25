@@ -20,8 +20,8 @@ public class DashboardController {
     public boolean apply(@RequestParam String fullName, @RequestParam String skills,
                          @RequestParam int experience, @RequestParam long userId,
                          @RequestParam String designation, @RequestParam String languages,
-                         @RequestBody MultipartFile resume) throws IOException {
-        return dashboardService.apply(userId, fullName, skills, experience, designation, languages, resume);
+                         @RequestParam("document") List<MultipartFile> multipartFiles) throws IOException {
+        return dashboardService.apply(userId, fullName, skills, experience, designation, languages, multipartFiles);
     }
 
     @GetMapping(path = "/availableMentors")

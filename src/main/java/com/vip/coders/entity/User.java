@@ -34,4 +34,7 @@ public class User {
 
     @Lob
     byte[] resume;
+
+    @Lob
+    byte[] photo;
 }
