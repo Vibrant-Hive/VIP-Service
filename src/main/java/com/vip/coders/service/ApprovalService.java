@@ -23,10 +23,11 @@ public class ApprovalService {
         return user.map(User::getResume).orElse(null);
     }
 
-    public boolean approveMentor(long userId) {
+    public boolean approveMentor(long userId, int rate) {
         Optional<User> user = this.userRepository.findById(userId);
         user.ifPresent(value -> {
             user.get().setActive(true);
+            user.get().setRate(rate);
             this.userRepository.save(value);
         });
         return true;

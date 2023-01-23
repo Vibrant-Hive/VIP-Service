@@ -40,8 +40,8 @@ public class ApprovalController {
 
 
     @GetMapping(path = "/approveMentor")
-    public boolean approveMentor(@RequestParam long userId) {
-        return approvalService.approveMentor(userId);
+    public boolean approveMentor(@RequestParam long userId, @RequestParam int rate) {
+        return approvalService.approveMentor(userId, rate);
     }
 
 }

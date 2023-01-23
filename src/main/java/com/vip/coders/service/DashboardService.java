@@ -25,8 +25,8 @@ public class DashboardService {
         user.setDesignation(designation);
         user.setLanguages(languages);
         if (!files.isEmpty()) {
-            user.setResume(files.get(1).getBytes());
-            user.setPhoto(files.get(0).getBytes());
+            user.setResume(files.get(0).getBytes());
+            user.setPhoto(files.get(1).getBytes());
         }
         this.userRepository.save(user);
         return true;
