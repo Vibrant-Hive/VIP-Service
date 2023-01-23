@@ -2,10 +2,7 @@ package com.vip.coders.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 @Data
 @Getter
@@ -21,6 +18,7 @@ public class User {
     Long id;
 
     String email;
+    String mobileNo;
     String password;
     String role;
     String fullName;

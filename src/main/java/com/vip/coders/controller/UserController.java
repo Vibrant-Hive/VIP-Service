@@ -15,8 +15,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(path = "/validateUser")
-    public User validateUser(@RequestParam String email, @RequestParam String password) {
-        User user = userService.getUser(email);
+    public User validateUser(@RequestParam String userName, @RequestParam String password) {
+        User user = userService.getUser(userName);
         if (user != null && user.getPassword().equals(password)) {
             user.setResume(null);
             return user;
@@ -26,7 +26,7 @@ public class UserController {
 
     @PostMapping(path = "/createAccount")
     @CrossOrigin()
-    public User createAccount(@RequestBody User user) {
+    public User createAccount(@RequestBody User user) throws Exception {
         return userService.saveUser(user);
     }
 

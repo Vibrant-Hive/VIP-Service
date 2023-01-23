@@ -12,15 +12,22 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User saveUser(User user) {
-        if (getUser(user.getEmail()) == null) {
-            return userRepository.save(user);
+    public User saveUser(User user) throws Exception {
+        if (getUser(user.getMobileNo()) != null) {
+            throw new Exception("Mobile No Already Exists");
         }
-        return user;
+        if (getUser(user.getEmail()) != null) {
+            throw new Exception("Email Already Exists");
+        }
+        return userRepository.save(user);
     }
 
-    public User getUser(String email) {
-        return userRepository.findByEmail(email);
+    public User getUser(String userName) {
+        User user = userRepository.findByEmail(userName);
+        if(user == null){
+            user = userRepository.findByMobileNo(userName);
+        }
+        return user;
     }
 
     public Optional<User> getUserById(long userId) {
