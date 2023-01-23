@@ -29,6 +29,7 @@ public class User {
     String languages;
     String designation;
     Integer rate;
+    String zoomLink;
 
     @Lob
     byte[] resume;
