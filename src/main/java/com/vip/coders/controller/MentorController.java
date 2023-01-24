@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-public class DashboardController {
+public class MentorController {
 
     @Autowired
     private DashboardService dashboardService;

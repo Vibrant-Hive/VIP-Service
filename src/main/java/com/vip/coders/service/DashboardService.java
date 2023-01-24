@@ -33,6 +33,9 @@ public class DashboardService {
     }
 
     public List<User> availableMentors() {
-        return this.userRepository.findByRoleAndActive("MENTOR", true);
+        List<User> mentors = this.userRepository.findByRoleAndActive("MENTOR", true);
+        List<User> master = this.userRepository.findByRoleAndActive("MASTER", true);
+        mentors.addAll(master);
+        return mentors;
     }
 }
