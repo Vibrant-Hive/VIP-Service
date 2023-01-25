@@ -18,10 +18,10 @@ public class MentorController {
     @PostMapping(path = "/apply")
     @CrossOrigin()
     public boolean apply(@RequestParam String fullName, @RequestParam String skills,
-                         @RequestParam int experience, @RequestParam long userId,
-                         @RequestParam String designation, @RequestParam String languages,
+                         @RequestParam int experience, @RequestParam long userId, @RequestParam String availability,
+                         @RequestParam String designation, @RequestParam String languages, @RequestParam String zoomLink,
                          @RequestParam("document") List<MultipartFile> multipartFiles) throws IOException {
-        return dashboardService.apply(userId, fullName, skills, experience, designation, languages, multipartFiles);
+        return dashboardService.apply(userId, fullName, skills, experience, designation, languages, zoomLink, availability, multipartFiles);
     }
 
     @GetMapping(path = "/availableMentors")

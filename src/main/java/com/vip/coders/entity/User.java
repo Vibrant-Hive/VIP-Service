@@ -37,7 +37,4 @@ public class User {
     @Lob
     byte[] photo;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "availability_id")
-    MentorAvailability mentorAvailability;
 }
