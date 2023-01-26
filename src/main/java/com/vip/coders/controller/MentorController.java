@@ -1,6 +1,6 @@
 package com.vip.coders.controller;
 
-import com.vip.coders.model.AvailableMentorResponse;
+import com.vip.coders.model.MentorResponse;
 import com.vip.coders.service.MentorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,16 +21,16 @@ public class MentorController {
                           @RequestParam int experience, @RequestParam long userId, @RequestParam String availability,
                           @RequestParam String designation, @RequestParam String languages, @RequestParam String zoomLink,
                           @RequestParam(value = "resume", required = false) MultipartFile resume, @RequestParam(value = "photo", required = false) MultipartFile photo) throws IOException {
-        return mentorService.updateProfile(userId, fullName, active, skills, role,  experience, designation, languages, zoomLink, availability, resume, photo);
+        return mentorService.mentorResponse(userId, fullName, active, skills, role,  experience, designation, languages, zoomLink, availability, resume, photo);
     }
 
     @GetMapping(path = "/availableMentors")
-    public List<AvailableMentorResponse> availableMentors() {
+    public List<MentorResponse> availableMentors() {
         return mentorService.availableMentors();
     }
 
     @GetMapping(path = "/appliedMentors")
-    public List<AvailableMentorResponse> appliedMentorsUrl() {
+    public List<MentorResponse> appliedMentors() {
         return mentorService.appliedMentors();
     }
 

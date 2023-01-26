@@ -8,11 +8,11 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AvailableMentorResponse {
-    long id;
+public class MentorResponse {
+    Long id;
     String fullName;
     String skills;
-    int experience;
+    Integer experience;
     String designation;
-    int rate;
+    Integer rate;
 }
