@@ -30,7 +30,10 @@ public class User {
     String designation;
     Integer rate;
     String zoomLink;
-
+    String resumeFileType;
+    String photoFileType;
+    String resumeFileName;
+    String photoFileName;
     @Lob
     byte[] resume;
 

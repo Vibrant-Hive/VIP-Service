@@ -2,11 +2,11 @@ package com.vip.coders.controller;
 
 
 import com.vip.coders.entity.User;
+import com.vip.coders.model.LoggedInUserResponse;
 import com.vip.coders.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -15,13 +15,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(path = "/validateUser")
-    public User validateUser(@RequestParam String userName, @RequestParam String password) {
+    public LoggedInUserResponse validateUser(@RequestParam String userName, @RequestParam String password) {
+        LoggedInUserResponse loggedInUserResponse = LoggedInUserResponse.builder().build();
         User user = userService.getUser(userName);
         if (user != null && user.getPassword().equals(password)) {
-            user.setResume(null);
-            return user;
+            BeanUtils.copyProperties(user, loggedInUserResponse);
+            return loggedInUserResponse;
         }
-        return null;
+        return loggedInUserResponse;
     }
 
     @PostMapping(path = "/createAccount")
@@ -31,6 +32,6 @@ public class UserController {
     }
 
     @GetMapping(path = "/getUser")
-    public Optional<User> getUser(@RequestParam long userId) {return userService.getUserById(userId);}
+    public User getUser(@RequestParam long userId) {return userService.getUserById(userId);}
 
 }

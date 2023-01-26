@@ -22,9 +22,9 @@ public class VIPServiceApplication {
 				registry.addMapping("/createAccount");
 				registry.addMapping("/availableMentors");
 				registry.addMapping("/appliedMentors");
-				registry.addMapping("/downloadResume");
 				registry.addMapping("/approveMentor");
 				registry.addMapping("/getUser");
+				registry.addMapping("/updateProfile");
 			}
 		};
 	}
