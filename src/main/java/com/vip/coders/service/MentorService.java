@@ -38,14 +38,14 @@ public class MentorService {
         user.setZoomLink(zoomLink);
         user.setAvailability(availability);
         if (resume != null) {
-            user.setResume(resume.getBytes());
-            user.setResumeFileType(resume.getContentType());
-            user.setResumeFileName(user.getFullName() + "_Resume." + FilenameUtils.getExtension(resume.getOriginalFilename()));
+            user.getMentorFiles().setResume(resume.getBytes());
+            user.getMentorFiles().setResumeFileType(resume.getContentType());
+            user.getMentorFiles().setResumeFileName(user.getFullName() + "_Resume." + FilenameUtils.getExtension(resume.getOriginalFilename()));
         }
         if (photo != null) {
-            user.setPhoto(photo.getBytes());
-            user.setPhotoFileType(photo.getContentType());
-            user.setPhotoFileName(user.getFullName() + "_Photo." + FilenameUtils.getExtension(photo.getOriginalFilename()));
+            user.getMentorFiles().setPhoto(photo.getBytes());
+            user.getMentorFiles().setPhotoFileType(photo.getContentType());
+            user.getMentorFiles().setPhotoFileName(user.getFullName() + "_Photo." + FilenameUtils.getExtension(photo.getOriginalFilename()));
         }
         this.userRepository.save(user);
         return true;
