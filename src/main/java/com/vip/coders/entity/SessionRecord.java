@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Date;
 
 @Data
 @Getter
@@ -22,5 +23,5 @@ public class SessionRecord {
 
     String recordFileLink;
     String recordFileName;
-    String uploadedDate;
+    Date uploadedDate;
 }
