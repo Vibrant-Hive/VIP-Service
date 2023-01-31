@@ -21,7 +21,7 @@ public class MentorController {
                           @RequestParam int experience, @RequestParam long userId, @RequestParam String availability,
                           @RequestParam String designation, @RequestParam String languages, @RequestParam String zoomLink,
                           @RequestParam(value = "resume", required = false) MultipartFile resume, @RequestParam(value = "photo", required = false) MultipartFile photo) throws IOException {
-        return mentorService.mentorResponse(userId, fullName, active, skills, role,  experience, designation, languages, zoomLink, availability, resume, photo);
+        return mentorService.updateProfile(userId, fullName, active, skills, role,  experience, designation, languages, zoomLink, availability, resume, photo);
     }
 
     @GetMapping(path = "/availableMentors")

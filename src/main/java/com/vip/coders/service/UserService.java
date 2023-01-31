@@ -1,23 +1,23 @@
 package com.vip.coders.service;
 
 import com.vip.coders.entity.User;
+import com.vip.coders.exception.AlreadyFoundException;
 import com.vip.coders.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User saveUser(User user) throws Exception {
+    public User saveUser(User user) {
         if (getUser(user.getMobileNo()) != null) {
-            throw new Exception("Mobile No Already Exists");
+            throw new AlreadyFoundException("Mobile No Already Exists");
         }
         if (getUser(user.getEmail()) != null) {
-            throw new Exception("Email Already Exists");
+            throw new AlreadyFoundException("Email Already Exists");
         }
         return userRepository.save(user);
     }
