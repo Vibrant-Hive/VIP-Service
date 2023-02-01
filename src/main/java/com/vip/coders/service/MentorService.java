@@ -1,5 +1,6 @@
 package com.vip.coders.service;
 
+import com.vip.coders.entity.MentorFiles;
 import com.vip.coders.entity.User;
 import com.vip.coders.model.MentorResponse;
 import com.vip.coders.repository.UserRepository;
@@ -20,13 +21,13 @@ public class MentorService {
     @Autowired
     private UserRepository userRepository;
 
-    private static MentorResponse mentorResponse(User user) {
+    private static MentorResponse updateProfile(User user) {
         MentorResponse mentorResponse = MentorResponse.builder().build();
         BeanUtils.copyProperties(user, mentorResponse);
         return mentorResponse;
     }
 
-    public boolean mentorResponse(long userId, String fullName, boolean active, String skills, String role, int experience, String designation, String languages, String zoomLink, String availability, MultipartFile resume, MultipartFile photo) throws IOException {
+    public boolean updateProfile(long userId, String fullName, boolean active, String skills, String role, int experience, String designation, String languages, String zoomLink, String availability, MultipartFile resume, MultipartFile photo) throws IOException {
         User user = this.userRepository.findById(userId).orElse(User.builder().build());
         user.setExperience(experience);
         user.setFullName(fullName);
@@ -37,15 +38,18 @@ public class MentorService {
         user.setLanguages(languages);
         user.setZoomLink(zoomLink);
         user.setAvailability(availability);
+        if(user.getMentorFiles() == null){
+            user.setMentorFiles(MentorFiles.builder().build());
+        }
         if (resume != null) {
-            user.setResume(resume.getBytes());
-            user.setResumeFileType(resume.getContentType());
-            user.setResumeFileName(user.getFullName() + "_Resume." + FilenameUtils.getExtension(resume.getOriginalFilename()));
+            user.getMentorFiles().setResume(resume.getBytes());
+            user.getMentorFiles().setResumeFileType(resume.getContentType());
+            user.getMentorFiles().setResumeFileName(user.getFullName() + "_Resume." + FilenameUtils.getExtension(resume.getOriginalFilename()));
         }
         if (photo != null) {
-            user.setPhoto(photo.getBytes());
-            user.setPhotoFileType(photo.getContentType());
-            user.setPhotoFileName(user.getFullName() + "_Photo." + FilenameUtils.getExtension(photo.getOriginalFilename()));
+            user.getMentorFiles().setPhoto(photo.getBytes());
+            user.getMentorFiles().setPhotoFileType(photo.getContentType());
+            user.getMentorFiles().setPhotoFileName(user.getFullName() + "_Photo." + FilenameUtils.getExtension(photo.getOriginalFilename()));
         }
         this.userRepository.save(user);
         return true;
@@ -55,14 +59,14 @@ public class MentorService {
         List<User> mentors = this.userRepository.findByRoleAndActive("MENTOR", true);
         List<User> master = this.userRepository.findByRoleAndActive("MASTER", true);
         mentors.addAll(master);
-        return mentors.stream().map(MentorService::mentorResponse).collect(Collectors.toList());
+        return mentors.stream().map(MentorService::updateProfile).collect(Collectors.toList());
     }
 
     public List<MentorResponse> appliedMentors() {
         List<User> mentors = this.userRepository.findByRoleAndActive("MENTOR", false);
         List<User> master = this.userRepository.findByRoleAndActive("MASTER", false);
         mentors.addAll(master);
-        return mentors.stream().map(MentorService::mentorResponse).collect(Collectors.toList());
+        return mentors.stream().map(MentorService::updateProfile).collect(Collectors.toList());
     }
 
     public boolean approveMentor(long userId, int rate) {

@@ -30,14 +30,9 @@ public class User {
     String designation;
     Integer rate;
     String zoomLink;
-    String resumeFileType;
-    String photoFileType;
-    String resumeFileName;
-    String photoFileName;
-    @Lob
-    byte[] resume;
 
-    @Lob
-    byte[] photo;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "mentor_files_id", referencedColumnName = "id")
+    MentorFiles mentorFiles;
 
 }
