@@ -56,15 +56,15 @@ public class MentorService {
     }
 
     public List<MentorResponse> availableMentors() {
-        List<User> mentors = this.userRepository.findByRoleAndActive("MENTOR", true);
         List<User> master = this.userRepository.findByRoleAndActive("MASTER", true);
+        List<User> mentors = this.userRepository.findByRoleAndActive("MENTOR", true);
         mentors.addAll(master);
         return mentors.stream().map(MentorService::updateProfile).collect(Collectors.toList());
     }
 
     public List<MentorResponse> appliedMentors() {
-        List<User> mentors = this.userRepository.findByRoleAndActive("MENTOR", false);
         List<User> master = this.userRepository.findByRoleAndActive("MASTER", false);
+        List<User> mentors = this.userRepository.findByRoleAndActive("MENTOR", false);
         mentors.addAll(master);
         return mentors.stream().map(MentorService::updateProfile).collect(Collectors.toList());
     }
