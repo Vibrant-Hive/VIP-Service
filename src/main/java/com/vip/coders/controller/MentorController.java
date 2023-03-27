@@ -16,11 +16,12 @@ public class MentorController {
     private MentorService mentorService;
 
     @PostMapping(path = "/updateProfile")
+    @CrossOrigin()
     public boolean updateProfile(@RequestParam String fullName, @RequestParam String skills, @RequestParam String role, @RequestParam boolean active,
                           @RequestParam int experience, @RequestParam long userId, @RequestParam String availability,
                           @RequestParam String designation, @RequestParam String languages, @RequestParam String zoomLink,
                           @RequestParam(value = "resume", required = false) MultipartFile resume, @RequestParam(value = "photo", required = false) MultipartFile photo) throws IOException {
-        return mentorService.updateProfile(userId, fullName, active, skills, role,  experience, designation, languages, zoomLink, availability, resume, photo);
+        return mentorService.updateProfile(userId, fullName, active, skillSetId, role,  experience, designation, languages, zoomLink, availability, resume, photo);
     }
 
     @GetMapping(path = "/availableMentors")
