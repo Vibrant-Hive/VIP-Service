@@ -21,8 +21,10 @@ public class User {
     String mobileNo;
     String password;
     String role;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "skill_set_id", referencedColumnName = "id")
+    SkillSet skillSet;
     String fullName;
-    String skills;
     Boolean active;
     Integer experience;
     String availability;

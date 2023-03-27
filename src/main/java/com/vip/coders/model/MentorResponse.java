@@ -1,5 +1,6 @@
 package com.vip.coders.model;
 
+import com.vip.coders.entity.SkillSet;
 import lombok.*;
 
 @Data
@@ -11,7 +12,7 @@ import lombok.*;
 public class MentorResponse {
     Long id;
     String fullName;
-    String skills;
+    SkillSet skillSet;
     Integer experience;
     String designation;
     Integer rate;

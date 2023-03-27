@@ -1,8 +1,10 @@
 package com.vip.coders.service;
 
 import com.vip.coders.entity.MentorFiles;
+import com.vip.coders.entity.SkillSet;
 import com.vip.coders.entity.User;
 import com.vip.coders.model.MentorResponse;
+import com.vip.coders.repository.SkillSetRepository;
 import com.vip.coders.repository.UserRepository;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +22,8 @@ public class MentorService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SkillSetRepository skillSetRepository;
 
     private static MentorResponse updateProfile(User user) {
         MentorResponse mentorResponse = MentorResponse.builder().build();
@@ -27,11 +31,12 @@ public class MentorService {
         return mentorResponse;
     }
 
-    public boolean updateProfile(long userId, String fullName, boolean active, String skills, String role, int experience, String designation, String languages, String zoomLink, String availability, MultipartFile resume, MultipartFile photo) throws IOException {
+    public boolean updateProfile(long userId, String fullName, boolean active, int skillSetId, String role, int experience, String designation, String languages, String zoomLink, String availability, MultipartFile resume, MultipartFile photo) throws IOException {
+        SkillSet skillSet = this.skillSetRepository.findById(skillSetId).orElse(SkillSet.builder().build());
         User user = this.userRepository.findById(userId).orElse(User.builder().build());
         user.setExperience(experience);
         user.setFullName(fullName);
-        user.setSkills(skills);
+        user.setSkillSet(skillSet);
         user.setRole(role);
         user.setActive(active);
         user.setDesignation(designation);
