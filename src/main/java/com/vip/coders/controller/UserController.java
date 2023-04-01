@@ -34,4 +34,5 @@ public class UserController {
     @GetMapping(path = "/getUser")
     public User getUser(@RequestParam long userId) {return userService.getUserById(userId);}
 
+
 }

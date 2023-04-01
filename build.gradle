@@ -1,8 +1,9 @@
 plugins {
     id 'org.springframework.boot' version '2.7.0'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
     id 'java'
     id "com.microsoft.azure.azurewebapp" version "1.1.0"
+//    id "io.spring.dependency-management" version ""
 }
 
 group = 'com.vip'
@@ -22,14 +23,18 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.7.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.29'
-    implementation 'commons-io:commons-io:2.6'
+    implementation 'commons-io:commons-io:2.11.0'
+
 }
+sourceCompatibility = 8
+targetCompatibility = 8
 
 tasks.named('test') {
     useJUnitPlatform()
