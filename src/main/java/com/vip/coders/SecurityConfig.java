@@ -26,8 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
      auth.jdbcAuthentication().dataSource(dataSource).
-             usersByUsernameQuery("select full_name, password, active from users where full_name=?")
-             .authoritiesByUsernameQuery("select full_name, role from users where full_name=?");
+             usersByUsernameQuery("select mobile_no, password, active from users where  mobile_no=?")
+             .authoritiesByUsernameQuery("select mobile_no, role from users where  mobile_no=?");
+     auth.jdbcAuthentication().dataSource(dataSource)
+        .usersByUsernameQuery("select email,password,active from users where  email=?").
+             authoritiesByUsernameQuery("select email, role from users where email=?");
     }
     @Bean
     public PasswordEncoder getPasswordEncoder(){
