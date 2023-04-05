@@ -15,7 +15,6 @@ public class MentorFiles {
     @GeneratedValue
     @Id
     Long id;
-
     String resumeFileType;
     String photoFileType;
     String resumeFileName;

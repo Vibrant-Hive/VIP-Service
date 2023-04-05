@@ -17,7 +17,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AlreadyFoundException.class)
     public ResponseEntity<Object> handleAlreadyFoundException(
             AlreadyFoundException ex, WebRequest request) {
-
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage());
