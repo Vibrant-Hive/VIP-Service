@@ -16,7 +16,6 @@ public class User {
     @GeneratedValue
     @Id
     Long id;
-
     String email;
     String mobileNo;
     String password;
@@ -30,8 +29,6 @@ public class User {
     String designation;
     Integer rate;
     String zoomLink;
-
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mentor_files_id", referencedColumnName = "id")
     MentorFiles mentorFiles;
