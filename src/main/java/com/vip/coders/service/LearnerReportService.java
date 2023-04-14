@@ -14,4 +14,8 @@ public class LearnerReportService {
     public LearnerReport getLearnerReport(Integer id) {
         return this.reportRepository.findById(id).orElse(null);
     }
+
+    public LearnerReport saveLearnerReport(LearnerReport learnerReport) {
+        return reportRepository.save(learnerReport);
+    }
 }
