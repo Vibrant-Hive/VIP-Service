@@ -26,8 +26,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/createAccount")
-    @CrossOrigin()
-    public User createAccount(@RequestBody User user) throws Exception {
+    public User createAccount(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
