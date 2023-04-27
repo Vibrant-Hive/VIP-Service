@@ -1,9 +1,11 @@
 package com.vip.coders.entity;
 
 import lombok.*;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
 @Getter
@@ -19,5 +21,7 @@ public class SkillSet {
     String skillSetName;
     Boolean active;
     String relatedTechnologies;
+
+
 
 }
