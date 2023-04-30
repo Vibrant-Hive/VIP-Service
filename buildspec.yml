@@ -9,8 +9,7 @@ phases:
     commands:
       - echo Build started on `date`
       - chmod +x gradlew
-      - ./gradlew wrapper --gradle-version 7.4
-      - gradle build
+      - ./gradlew build
 artifacts:
   type: zip
   files:
