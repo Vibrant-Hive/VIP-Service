@@ -1,1 +1,1 @@
-web: java -jar build/libs/coders-0.0.1-SNAPSHOT.jar
+web: java -jar coders-0.0.1-SNAPSHOT.jar
