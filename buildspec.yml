@@ -1,15 +1,15 @@
 version: 0.1
 
-  phases:
+phases:
   install:
-  commands:
-    - echo Entering install phase...
-    - echo Nothing to do now
+    commands:
+      - echo Entering install phase...
+      - echo Nothing to do now
   build:
-  commands:
-    - echo Build started on `date`
-    - gradle build
-  artifacts:
+    commands:
+      - echo Build started on `date`
+      - gradle build
+artifacts:
   type: zip
   files:
     - 'build/libs/*.jar'
