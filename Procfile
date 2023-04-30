@@ -1,1 +1,1 @@
-web: java -jar coders-0.0.1-SNAPSHOT.jar
+web: java -jar target/coders-0.0.1-SNAPSHOT.jar
