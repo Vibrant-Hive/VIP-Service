@@ -14,5 +14,6 @@ public class MentorResponse {
     String skills;
     Integer experience;
     String designation;
+    String languages;
     Integer rate;
 }
