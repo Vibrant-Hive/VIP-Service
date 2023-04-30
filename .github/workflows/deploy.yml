@@ -1,0 +1,27 @@
+name: Deploy master
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout source code
+      uses: actions/checkout@v2
+
+    - name: Generate deployment package
+      run: ./gradlew assemble
+
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        aws_access_key: AKIA3RKXVT5WFRN45VCZ
+        aws_secret_key: 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
+        application_name: Vibrant-Hive-Service
+        environment_name: Vibranthiveservice-env
+        version_label: vibrant-hive-service-source
+        region: us-east-2
+        deployment_package: build/libs/coders-0.0.1-SNAPSHOT.jar
