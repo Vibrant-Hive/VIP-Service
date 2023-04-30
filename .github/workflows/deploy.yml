@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Generate deployment package
-      run: ./gradlew assemble
+      run: gradle assemble
 
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v21
