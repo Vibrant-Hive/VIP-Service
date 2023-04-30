@@ -15,6 +15,7 @@ public class UserResponse implements Comparable<UserResponse>{
     String role;
     String fullName;
     Boolean active;
+    String languages;
 
     @Override
     public int compareTo(UserResponse o) {
