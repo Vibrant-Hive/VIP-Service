@@ -8,11 +8,16 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
+public class UserResponse implements Comparable<UserResponse>{
     Long id;
     String email;
     String mobileNo;
     String role;
     String fullName;
     Boolean active;
+
+    @Override
+    public int compareTo(UserResponse o) {
+        return 0;
+    }
 }

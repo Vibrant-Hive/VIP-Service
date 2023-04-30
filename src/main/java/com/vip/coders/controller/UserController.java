@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
@@ -38,7 +37,7 @@ public class UserController {
     public User getUser(@RequestParam long userId) {return userService.getUserById(userId);}
 
     @GetMapping(path = "/getAllUsers")
-    public List<UserResponse> getAllUsers() {return userService.getAllUsers().stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());}
+    public List<UserResponse> getAllUsers() {return userService.getAllUsers();}
 
 
 }

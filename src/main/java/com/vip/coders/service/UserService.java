@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -47,6 +48,7 @@ public class UserService {
             BeanUtils.copyProperties(user, userResponse);
             userResponses.add(userResponse);
         });
+        Collections.reverse(userResponses);
         return userResponses;
     }
 }
