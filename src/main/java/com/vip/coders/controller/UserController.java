@@ -2,13 +2,15 @@ package com.vip.coders.controller;
 
 
 import com.vip.coders.entity.User;
-import com.vip.coders.model.LoggedInUserResponse;
+import com.vip.coders.model.UserResponse;
 import com.vip.coders.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
@@ -17,14 +19,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(path = "/validateUser")
-    public LoggedInUserResponse validateUser(@RequestParam String userName, @RequestParam String password) {
-        LoggedInUserResponse loggedInUserResponse = LoggedInUserResponse.builder().build();
+    public UserResponse validateUser(@RequestParam String userName, @RequestParam String password) {
+        UserResponse userResponse = UserResponse.builder().build();
         User user = userService.getUser(userName);
         if (user != null && user.getPassword().equals(password)) {
-            BeanUtils.copyProperties(user, loggedInUserResponse);
-            return loggedInUserResponse;
+            BeanUtils.copyProperties(user, userResponse);
+            return userResponse;
         }
-        return loggedInUserResponse;
+        return userResponse;
     }
 
     @PostMapping(path = "/createAccount")
@@ -36,7 +38,7 @@ public class UserController {
     public User getUser(@RequestParam long userId) {return userService.getUserById(userId);}
 
     @GetMapping(path = "/getAllUsers")
-    public List<User> getAllUsers() {return userService.getAllUsers();}
+    public List<UserResponse> getAllUsers() {return userService.getAllUsers().stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());}
 
 
 }

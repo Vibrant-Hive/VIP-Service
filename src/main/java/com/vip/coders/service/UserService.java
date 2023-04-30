@@ -2,10 +2,13 @@ package com.vip.coders.service;
 
 import com.vip.coders.entity.User;
 import com.vip.coders.exception.AlreadyFoundException;
+import com.vip.coders.model.UserResponse;
 import com.vip.coders.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,7 +39,14 @@ public class UserService {
         return this.userRepository.findById(userId).orElse(null);
     }
 
-    public List<User> getAllUsers() {
-        return (List<User>) this.userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        List<User> users = (List<User>) this.userRepository.findAll();
+        List<UserResponse> userResponses = new ArrayList<>();
+        users.forEach(user -> {
+            UserResponse userResponse = UserResponse.builder().build();
+            BeanUtils.copyProperties(user, userResponse);
+            userResponses.add(userResponse);
+        });
+        return userResponses;
     }
 }

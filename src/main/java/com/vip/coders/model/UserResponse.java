@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoggedInUserResponse {
+public class UserResponse {
     Long id;
     String email;
     String mobileNo;
