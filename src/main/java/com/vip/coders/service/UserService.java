@@ -6,6 +6,8 @@ import com.vip.coders.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class UserService {
@@ -34,4 +36,7 @@ public class UserService {
         return this.userRepository.findById(userId).orElse(null);
     }
 
+    public List<User> getAllUsers() {
+        return (List<User>) this.userRepository.findAll();
+    }
 }

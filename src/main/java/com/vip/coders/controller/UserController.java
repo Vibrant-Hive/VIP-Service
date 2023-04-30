@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -32,6 +34,9 @@ public class UserController {
 
     @GetMapping(path = "/getUser")
     public User getUser(@RequestParam long userId) {return userService.getUserById(userId);}
+
+    @GetMapping(path = "/getAllUsers")
+    public List<User> getAllUsers() {return userService.getAllUsers();}
 
 
 }
