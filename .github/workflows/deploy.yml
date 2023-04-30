@@ -24,4 +24,3 @@ jobs:
         environment_name: Vibranthiveservice-env
         version_label: vibrant-hive-service-source
         region: us-east-2
-        deployment_package: build/libs/coders-0.0.1-SNAPSHOT.jar
