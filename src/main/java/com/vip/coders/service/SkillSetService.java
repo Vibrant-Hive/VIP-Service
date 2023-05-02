@@ -17,7 +17,6 @@ public class SkillSetService {
     @Autowired
     SkillSetRepository skillSetRepository;
 
-    @GetMapping(path = "/getAllSkillSet")
     public List<SkillSet> getAllSkillSet() {
 
         List<SkillSet> list = (List<SkillSet>) this.skillSetRepository.findAll();
