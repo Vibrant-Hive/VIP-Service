@@ -23,7 +23,7 @@ public class Session {
     Long mentorUserId;
     Long learnerUserId;
 
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd")
     Date sessionDate;
     Time startTime;
     Time endTime;
