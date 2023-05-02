@@ -14,7 +14,13 @@ import java.util.List;
 public class SkillSetController {
     @Autowired
     private SkillSetService skillSetService;
+    @GetMapping(path = "/getAllSkillSet")
+    public List<SkillSet> getAllSkillSet() {
 
+        List<SkillSet> list = this.skillSetService.getAllSkillSet();
+        return list;
+
+    }
 }
 
 
