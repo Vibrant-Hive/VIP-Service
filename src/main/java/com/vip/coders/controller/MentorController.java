@@ -1,5 +1,6 @@
 package com.vip.coders.controller;
 
+import com.vip.coders.entity.SupportRequest;
 import com.vip.coders.model.MentorResponse;
 import com.vip.coders.service.MentorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ public class MentorController {
     private MentorService mentorService;
 
     @PostMapping(path = "/updateProfile")
-    @CrossOrigin()
     public boolean updateProfile(@RequestParam String fullName, @RequestParam Integer skillSetId, @RequestParam String role, @RequestParam boolean active,
                           @RequestParam int experience, @RequestParam long userId, @RequestParam String availability,
                           @RequestParam String designation, @RequestParam String languages, @RequestParam String zoomLink,
@@ -29,14 +29,14 @@ public class MentorController {
         return mentorService.availableMentors();
     }
 
-    @GetMapping(path = "/appliedMentors")
-    public List<MentorResponse> appliedMentors() {
-        return mentorService.appliedMentors();
+    @GetMapping(path = "/requestForSupport")
+    public SupportRequest requestForSupport(@RequestParam int learnerId, @RequestParam int mentorId){
+        return mentorService.requestForSupport(learnerId, mentorId);
     }
 
-    @GetMapping(path = "/approveMentor")
-    public boolean approveMentor(@RequestParam long userId, @RequestParam int rate) {
-        return mentorService.approveMentor(userId, rate);
+    @GetMapping(path = "/getSupportRequest")
+    public SupportRequest getSupportRequest(@RequestParam int learnerId, @RequestParam int mentorId){
+        return mentorService.getSupportRequest(learnerId, mentorId);
     }
 
 }

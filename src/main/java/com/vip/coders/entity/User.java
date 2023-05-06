@@ -20,9 +20,11 @@ public class User {
     String mobileNo;
     String password;
     String role;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "skill_set_id", referencedColumnName = "id")
     SkillSet skillSet;
+
     String fullName;
     Boolean active;
     Integer experience;
@@ -31,6 +33,7 @@ public class User {
     String designation;
     Integer rate;
     String zoomLink;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mentor_files_id", referencedColumnName = "id")
     MentorFiles mentorFiles;

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Date;
 
 @Data
 @Getter
@@ -13,12 +14,14 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "SKILL_SET")
-public class SkillSet {
+@Entity(name = "SUPPORT_REQUESTS")
+public class SupportRequest {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     int id;
-    String skillSetName;
-    Boolean active;
-    String relatedTechnologies;
+    int learnerId;
+    int mentorId;
+    Date requestedOn;
+    boolean verified;
 }

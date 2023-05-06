@@ -2,9 +2,11 @@ package com.vip.coders.service;
 
 import com.vip.coders.entity.MentorFiles;
 import com.vip.coders.entity.SkillSet;
+import com.vip.coders.entity.SupportRequest;
 import com.vip.coders.entity.User;
 import com.vip.coders.model.MentorResponse;
 import com.vip.coders.repository.SkillSetRepository;
+import com.vip.coders.repository.SupportRequestRepository;
 import com.vip.coders.repository.UserRepository;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.BeanUtils;
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +26,9 @@ public class MentorService {
     private UserRepository userRepository;
     @Autowired
     private SkillSetRepository skillSetRepository;
+
+    @Autowired
+    private SupportRequestRepository supportRequestRepository;
 
     private static MentorResponse updateProfile(User user) {
         MentorResponse mentorResponse = MentorResponse.builder().build();
@@ -43,7 +48,7 @@ public class MentorService {
         user.setLanguages(languages);
         user.setZoomLink(zoomLink);
         user.setAvailability(availability);
-        if(user.getMentorFiles() == null){
+        if (user.getMentorFiles() == null) {
             user.setMentorFiles(MentorFiles.builder().build());
         }
         if (resume != null) {
@@ -67,20 +72,17 @@ public class MentorService {
         return master.stream().map(MentorService::updateProfile).collect(Collectors.toList());
     }
 
-    public List<MentorResponse> appliedMentors() {
-        List<User> master = this.userRepository.findByRoleAndActive("MASTER", false);
-        List<User> mentors = this.userRepository.findByRoleAndActive("MENTOR", false);
-        master.addAll(mentors);
-        return master.stream().map(MentorService::updateProfile).collect(Collectors.toList());
+    public SupportRequest requestForSupport(int learnerId, int mentorId) {
+        SupportRequest supportRequest = SupportRequest.builder()
+                .requestedOn(new Date(System.currentTimeMillis()))
+                .mentorId(mentorId)
+                .learnerId(learnerId)
+                .verified(false)
+                .build();
+        return supportRequestRepository.save(supportRequest);
     }
 
-    public boolean approveMentor(long userId, int rate) {
-        Optional<User> user = this.userRepository.findById(userId);
-        user.ifPresent(value -> {
-            user.get().setActive(true);
-            user.get().setRate(rate);
-            this.userRepository.save(value);
-        });
-        return true;
+    public SupportRequest getSupportRequest(int learnerId, int mentorId) {
+        return supportRequestRepository.findByLearnerIdAndMentorId(learnerId, mentorId);
     }
 }

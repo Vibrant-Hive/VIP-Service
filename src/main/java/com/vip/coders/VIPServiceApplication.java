@@ -25,6 +25,8 @@ public class VIPServiceApplication {
 				registry.addMapping("/approveMentor");
 				registry.addMapping("/getUser");
 				registry.addMapping("/updateProfile");
+				registry.addMapping("/getSupportRequest");
+				registry.addMapping("/requestForSupport");
 			}
 		};
 	}
