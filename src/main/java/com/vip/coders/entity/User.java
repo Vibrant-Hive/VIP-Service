@@ -34,7 +34,7 @@ public class User {
     Integer rate;
     String zoomLink;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "mentor_files_id", referencedColumnName = "id")
     MentorFiles mentorFiles;
 
