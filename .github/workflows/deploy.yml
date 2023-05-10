@@ -18,8 +18,8 @@ jobs:
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v21
       with:
-        aws_access_key: AKIA3RKXVT5WFRN45VCZ
-        aws_secret_key: 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
+        aws_access_key: AKIA3RKXVT5WKGYUR6BJ
+        aws_secret_key: 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
         application_name: Vibrant-Hive-Service
         environment_name: Vibranthiveservice-env
         version_label: vibrant-hive-service-source-${{github.sha}}
