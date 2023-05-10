@@ -50,4 +50,9 @@ public class UserController {
         userEventRepository.save(userEvent);
     }
 
+    @GetMapping(path="/getAllUserEvents")
+    public List<UserEvent> getAllUserEvents(){
+        return (List<UserEvent>) userEventRepository.findAll();
+    }
+
 }
