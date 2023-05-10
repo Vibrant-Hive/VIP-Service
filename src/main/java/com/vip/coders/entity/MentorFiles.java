@@ -12,7 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity(name = "MENTOR_FILES")
 public class MentorFiles {
-    @GeneratedValue
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     Long id;
     String resumeFileType;

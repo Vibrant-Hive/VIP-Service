@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity(name = "USERS")
 public class User {
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     Long id;
     String email;
