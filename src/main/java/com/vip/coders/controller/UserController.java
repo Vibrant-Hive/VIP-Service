@@ -2,13 +2,15 @@ package com.vip.coders.controller;
 
 
 import com.vip.coders.entity.User;
+import com.vip.coders.entity.UserEvent;
 import com.vip.coders.model.UserResponse;
+import com.vip.coders.repository.UserEventRepository;
 import com.vip.coders.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -16,6 +18,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserEventRepository userEventRepository;
 
     @GetMapping(path = "/validateUser")
     public UserResponse validateUser(@RequestParam String userName, @RequestParam String password) {
@@ -39,5 +44,10 @@ public class UserController {
     @GetMapping(path = "/getAllUsers")
     public List<UserResponse> getAllUsers() {return userService.getAllUsers();}
 
+    @PostMapping(path="/registerUserEvent")
+    public void registerUserEvent(@RequestBody UserEvent userEvent){
+        userEvent.setEventDate(new Date(System.currentTimeMillis()));
+        userEventRepository.save(userEvent);
+    }
 
 }
