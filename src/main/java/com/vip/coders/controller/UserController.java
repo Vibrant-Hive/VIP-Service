@@ -47,7 +47,7 @@ public class UserController {
 
     @PostMapping(path="/registerUserEvent")
     public void registerUserEvent(@RequestBody UserEvent userEvent){
-        userEvent.setEventDate(new Date(System.currentTimeMillis()));
+        userEvent.setEventDate(new Date(System.currentTimeMillis() + 19800000));
         userEventRepository.save(userEvent);
     }
 
