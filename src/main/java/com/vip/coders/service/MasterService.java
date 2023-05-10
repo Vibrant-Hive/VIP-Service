@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,7 +52,9 @@ public class MasterService {
 
 
     public List<SupportRequest> getAllSupportRequests() {
-        return (List<SupportRequest>) supportRequestRepository.findAll();
+        List<SupportRequest> supportRequests = (List<SupportRequest>) supportRequestRepository.findAll();
+        Collections.reverse(supportRequests);
+        return supportRequests;
     }
 
     public boolean approveSupport(int requestId) {

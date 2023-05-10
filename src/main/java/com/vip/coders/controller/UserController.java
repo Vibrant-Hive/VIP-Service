@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -52,7 +53,9 @@ public class UserController {
 
     @GetMapping(path="/getAllUserEvents")
     public List<UserEvent> getAllUserEvents(){
-        return (List<UserEvent>) userEventRepository.findAll();
+        List<UserEvent> userEvents = (List<UserEvent>) userEventRepository.findAll();
+        Collections.reverse(userEvents);
+        return userEvents;
     }
 
 }
