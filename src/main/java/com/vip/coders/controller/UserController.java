@@ -6,6 +6,7 @@ import com.vip.coders.entity.UserEvent;
 import com.vip.coders.model.UserResponse;
 import com.vip.coders.repository.UserEventRepository;
 import com.vip.coders.service.UserService;
+import com.vip.coders.util.HTMLTableConverter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -52,10 +53,10 @@ public class UserController {
     }
 
     @GetMapping(path="/getAllUserEvents")
-    public List<UserEvent> getAllUserEvents(){
+    public String getAllUserEvents() throws NoSuchFieldException, IllegalAccessException {
         List<UserEvent> userEvents = (List<UserEvent>) userEventRepository.findAll();
         Collections.reverse(userEvents);
-        return userEvents;
+        return HTMLTableConverter.convertListToHTMLTable(userEvents);
     }
 
 }
