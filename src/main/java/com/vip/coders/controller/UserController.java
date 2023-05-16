@@ -41,18 +41,22 @@ public class UserController {
     }
 
     @GetMapping(path = "/getUser")
-    public User getUser(@RequestParam long userId) {return userService.getUserById(userId);}
+    public User getUser(@RequestParam long userId) {
+        return userService.getUserById(userId);
+    }
 
     @GetMapping(path = "/getAllUsers")
-    public List<UserResponse> getAllUsers() {return userService.getAllUsers();}
+    public String getAllUsers() throws NoSuchFieldException, IllegalAccessException {
+        return HTMLTableConverter.convertListToHTMLTable(userService.getAllUsers());
+    }
 
-    @PostMapping(path="/registerUserEvent")
-    public void registerUserEvent(@RequestBody UserEvent userEvent){
+    @PostMapping(path = "/registerUserEvent")
+    public void registerUserEvent(@RequestBody UserEvent userEvent) {
         userEvent.setEventDate(new Date(System.currentTimeMillis() + 19800000));
         userEventRepository.save(userEvent);
     }
 
-    @GetMapping(path="/getAllUserEvents")
+    @GetMapping(path = "/getAllUserEvents")
     public String getAllUserEvents() throws NoSuchFieldException, IllegalAccessException {
         List<UserEvent> userEvents = (List<UserEvent>) userEventRepository.findAll();
         Collections.reverse(userEvents);
