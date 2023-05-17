@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
@@ -59,6 +60,7 @@ public class UserController {
     @GetMapping(path = "/getAllUserEvents")
     public String getAllUserEvents() throws NoSuchFieldException, IllegalAccessException {
         List<UserEvent> userEvents = (List<UserEvent>) userEventRepository.findAll();
+        userEvents = userEvents.stream().filter(userEvent -> userEvent.getEventDate().after(new Date(System.currentTimeMillis() - 86400000))).collect(Collectors.toList());
         Collections.reverse(userEvents);
         return HTMLTableConverter.convertListToHTMLTable(userEvents);
     }
