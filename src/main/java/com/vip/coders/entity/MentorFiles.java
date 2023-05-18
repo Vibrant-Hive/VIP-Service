@@ -16,13 +16,13 @@ public class MentorFiles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     Long id;
-    String resumeFileType;
+//    String resumeFileType;
     String photoFileType;
-    String resumeFileName;
+//    String resumeFileName;
     String photoFileName;
 
-    @Lob
-    byte[] resume;
+//    @Lob
+//    byte[] resume;
 
     @Lob
     byte [] photo;

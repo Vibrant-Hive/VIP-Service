@@ -22,18 +22,11 @@ public class UserService {
         if (getUser(user.getMobileNo()) != null) {
             throw new AlreadyFoundException("Mobile No Already Exists");
         }
-        if (getUser(user.getEmail()) != null) {
-            throw new AlreadyFoundException("Email Already Exists");
-        }
         return userRepository.save(user);
     }
 
     public User getUser(String userName) {
-        User user = userRepository.findByEmail(userName);
-        if(user == null){
-            user = userRepository.findByMobileNo(userName);
-        }
-        return user;
+        return userRepository.findByMobileNo(userName);
     }
 
     public User getUserById(long userId) {

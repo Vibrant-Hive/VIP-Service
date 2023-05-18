@@ -51,11 +51,11 @@ public class MentorService {
         if (user.getMentorFiles() == null) {
             user.setMentorFiles(MentorFiles.builder().build());
         }
-        if (resume != null) {
-            user.getMentorFiles().setResume(resume.getBytes());
-            user.getMentorFiles().setResumeFileType(resume.getContentType());
-            user.getMentorFiles().setResumeFileName(user.getFullName() + "_Resume." + FilenameUtils.getExtension(resume.getOriginalFilename()));
-        }
+//        if (resume != null) {
+//            user.getMentorFiles().setResume(resume.getBytes());
+//            user.getMentorFiles().setResumeFileType(resume.getContentType());
+//            user.getMentorFiles().setResumeFileName(user.getFullName() + "_Resume." + FilenameUtils.getExtension(resume.getOriginalFilename()));
+//        }
         if (photo != null) {
             user.getMentorFiles().setPhoto(photo.getBytes());
             user.getMentorFiles().setPhotoFileType(photo.getContentType());
