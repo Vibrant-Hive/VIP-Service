@@ -19,7 +19,7 @@ public class UserStoriesController {
     @SneakyThrows
     @GetMapping(path = "/syncUserStories")
     public List<UserStories> syncUserStories(@RequestParam Integer learnerId) {
-        return userStoriesService.getOrganisationIssuesAssignedToAuthenticatedUser(learnerId);
+        return userStoriesService.getOrganisationIssues(learnerId);
 
     }
 
