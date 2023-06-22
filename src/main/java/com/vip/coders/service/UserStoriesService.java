@@ -1,18 +1,29 @@
 package com.vip.coders.service;
 
 import com.vip.coders.entity.UserStories;
-import com.vip.coders.model.GitHubUser;
-import org.springframework.beans.factory.annotation.Value;
+import com.vip.coders.repository.UserStoriesRepository;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class UserStoriesService {
+    @Autowired
+    private UserStoriesRepository userStoriesRepository;
+
 
     private static final String ISSUE_STATE_OPEN = "open";
 
@@ -20,27 +31,70 @@ public class UserStoriesService {
     private String githubUrl = "https://api.github.com";
     private String githubToken = "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";
 
-    public UserStoriesService(RestTemplateBuilder restTemplateBuilder,
-                              @Value("${github.url}") String githubUrl,
-                              @Value("${github.token}") String githubToken) {
+    public UserStoriesService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
 
     }
 
-    public List<UserStories> getOrganisationIssues(Integer learnerId) {
+    public List<UserStories> getOrganisationIssues(Integer learnerId, String repoName) throws Exception {
+        String apiUrl = githubUrl + "/repos/abdularsin/" + repoName + "/issues";
+        String response = callAPI(apiUrl);
+        JSONArray json = new JSONArray(response);
+        json.forEach(item -> {
+            UserStories userStories = new UserStories();
+            JSONObject jsonObject = (JSONObject) item;
+            userStories.setStoryNumber(jsonObject.getInt("number"));
+            userStories.setStoryName(jsonObject.getString("title"));
+            userStories.setStoryStatus(jsonObject.getString("state"));
+            userStories.setLearnerId(learnerId);
+            userStories.setRepositoryName(repoName);
 
+            LocalDateTime createdAt = LocalDateTime.parse(jsonObject.getString("created_at").replace("Z", ""));
+            Instant instant = createdAt.toInstant(ZoneOffset.UTC);
+            Date createdDate = Date.from(instant);
+
+            userStories.setStoryCreatedDate(createdDate);
+            userStoriesRepository.save(userStories);
+
+        });
         return null;
     }
 
-    private GitHubUser getUser() {
-        String url = githubUrl + "/user";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(githubToken);
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-        ResponseEntity<GitHubUser> response = restTemplate.exchange(url, HttpMethod.GET, entity, GitHubUser.class);
-        return response.getBody();
+    public String callAPI(String url) throws Exception {
+        // Create a URL object with the API endpoint
+        URL apiUrl = new URL(url);
+
+        // Create a connection object
+        HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+
+        // Set the request method (GET, POST, etc.)
+        connection.setRequestMethod("GET");
+
+        // Get the response code
+        int responseCode = connection.getResponseCode();
+
+        // If the response code is successful (HTTP 200)
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            // Create a BufferedReader to read the response
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+
+            // Read the response line by line
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+
+            // Return the response as a string
+            return response.toString();
+        } else {
+            // Handle the error case, if needed
+            throw new Exception("API request failed with response code: " + responseCode);
+        }
     }
+
+
 
 }
 
