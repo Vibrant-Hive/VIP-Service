@@ -17,7 +17,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class UserStoriesService {
@@ -36,7 +35,7 @@ public class UserStoriesService {
 
     }
 
-    public List<UserStories> getOrganisationIssues(Integer learnerId, String repoName) throws Exception {
+    public boolean getOrganisationIssues(Integer learnerId, String repoName) throws Exception {
         String apiUrl = githubUrl + "/repos/abdularsin/" + repoName + "/issues?state=all";
         String response = callAPI(apiUrl);
         JSONArray json = new JSONArray(response);
@@ -54,10 +53,19 @@ public class UserStoriesService {
             Date createdDate = Date.from(instant);
 
             userStories.setStoryCreatedDate(createdDate);
+
+            if(!jsonObject.isNull("closed_at")) {
+                LocalDateTime closedAt = LocalDateTime.parse(jsonObject.getString("closed_at").replace("Z", ""));
+                instant = closedAt.toInstant(ZoneOffset.UTC);
+                Date closedDate = Date.from(instant);
+
+                userStories.setStoryCompletedDate(closedDate);
+            }
+
             userStoriesRepository.save(userStories);
 
         });
-        return null;
+        return true;
     }
 
     public String callAPI(String url) throws Exception {
