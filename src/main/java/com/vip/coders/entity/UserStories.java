@@ -3,6 +3,7 @@ package com.vip.coders.entity;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -14,10 +15,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity(name = "USER_STORIES")
 public class UserStories {
-    @Id
-    Integer learnerId;
 
+    @Id
     Integer storyNumber;
+
+    Integer learnerId;
 
     String storyName;
 
