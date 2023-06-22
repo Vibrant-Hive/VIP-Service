@@ -18,8 +18,8 @@ public class UserStoriesController {
 
     @SneakyThrows
     @GetMapping(path = "/syncUserStories")
-    public List<UserStories> syncUserStories(@RequestParam Integer learnerId) {
-        return userStoriesService.getOrganisationIssues(learnerId);
+    public List<UserStories> syncUserStories(@RequestParam Integer learnerId, @RequestParam String repoName) {
+        return userStoriesService.getOrganisationIssues(learnerId, repoName);
 
     }
 
