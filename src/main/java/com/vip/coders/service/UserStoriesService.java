@@ -37,7 +37,7 @@ public class UserStoriesService {
     }
 
     public List<UserStories> getOrganisationIssues(Integer learnerId, String repoName) throws Exception {
-        String apiUrl = githubUrl + "/repos/abdularsin/" + repoName + "/issues";
+        String apiUrl = githubUrl + "/repos/abdularsin/" + repoName + "/issues?state=all";
         String response = callAPI(apiUrl);
         JSONArray json = new JSONArray(response);
         json.forEach(item -> {
