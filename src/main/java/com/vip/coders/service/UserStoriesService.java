@@ -35,7 +35,7 @@ public class UserStoriesService {
 
     }
 
-    public boolean getOrganisationIssues(Integer learnerId, String repoName) throws Exception {
+    public boolean getRepoIssues(Integer learnerId, String repoName) throws Exception {
         String apiUrl = githubUrl + "/repos/abdularsin/" + repoName + "/issues?state=all";
         String response = callAPI(apiUrl);
         JSONArray json = new JSONArray(response);
