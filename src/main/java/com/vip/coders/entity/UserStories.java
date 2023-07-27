@@ -2,8 +2,8 @@ package com.vip.coders.entity;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -30,5 +30,12 @@ public class UserStories {
     Date storyCreatedDate;
 
     Date storyCompletedDate;
+    @Column
+    String assignee;
+    @Column
+    Date storyAssignedDate;
+
+    Integer IssueId;
+
 
 }
